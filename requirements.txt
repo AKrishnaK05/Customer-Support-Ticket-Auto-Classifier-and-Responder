@@ -1,0 +1,11 @@
+torch
+pandas
+numpy
+scikit-learn
+scipy
+flask
+gunicorn
+transformers
+spacy
+textblob
+requests

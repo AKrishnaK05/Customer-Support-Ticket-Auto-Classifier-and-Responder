@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+/tclass/
+/venv/
+customer_support_nlp/venv/
+
+# Models and data
+*.pth
+models/
+data/
+
+# IDE
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db

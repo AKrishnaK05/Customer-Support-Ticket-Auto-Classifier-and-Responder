@@ -1,0 +1,96 @@
+:root{
+    --bg: linear-gradient(180deg,#f7f9fb 0%, #f5f7fa 100%);
+    --card:#ffffff;
+    --muted:#6b7280;
+    --accent:#2563eb; /* blue */
+    --accent-strong:#1e40af;
+    --dl-blue: #2563eb;
+    --nlp-purple: #7c3aed;
+    --success:#16a34a;
+    --warning:#f59e0b;
+    --danger:#ef4444;
+    --surface: #ffffff;
+    --max-width:1100px;
+}
+
+*{box-sizing:border-box}
+
+body{
+    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background:var(--bg);
+    margin:0;
+    color:#0f172a;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+
+.topbar{background:transparent;border-bottom:1px solid rgba(15,23,42,0.04)}
+.topbar-inner{max-width:var(--max-width);margin:0 auto;padding:18px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .logo{font-size:28px}
+.brand h1{margin:0;font-size:18px}
+.brand .sub{font-size:13px;color:var(--muted)}
+
+.wrap{max-width:var(--max-width);margin:26px auto;padding:0 18px}
+.input-panel{background:var(--surface);padding:20px;border-radius:14px;box-shadow:0 8px 30px rgba(16,24,40,0.06);margin-bottom:18px}
+
+.results-grid{display:block}
+.result-row{display:flex;gap:18px}
+.card-column{flex:1}
+
+.input-panel .input-label{display:block;font-weight:600;margin-bottom:8px}
+.input-panel textarea{width:100%;padding:16px 18px;font-size:15px;border-radius:12px;border:1px solid rgba(15,23,42,0.06);background:#fff;resize:vertical;min-height:140px;transition:box-shadow .18s ease,transform .12s ease}
+.input-panel textarea:focus{outline:none;box-shadow:0 8px 30px rgba(37,99,235,0.08);transform:translateY(-1px)}
+.controls{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.helper{color:var(--muted);font-size:13px}
+.primary{background:linear-gradient(90deg,var(--accent),var(--accent-strong));color:#fff;padding:12px 18px;border-radius:12px;border:none;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:10px}
+.primary:hover{transform:translateY(-2px)}
+.primary .spinner{display:none;width:18px;height:18px;border-radius:50%;border:3px solid rgba(255,255,255,0.25);border-top-color:rgba(255,255,255,0.9);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.result-card{background:var(--surface);padding:20px;border-radius:14px;box-shadow:0 10px 30px rgba(16,24,40,0.06)}
+.panel-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.panel-header > div{flex:1}
+.panel-title{font-weight:700}
+.panel-body{padding:6px 0}
+.ticket{background:#fbfdff;border-radius:10px;padding:10px;color:#0f172a;margin-bottom:10px}
+.field{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(15,23,42,0.03)}
+.field:last-child{border-bottom:none}
+.label{color:var(--muted);font-size:13px}
+.value{font-weight:600}
+
+.urgency{background:rgba(15,23,42,0.04);height:10px;border-radius:999px;overflow:hidden;margin-top:6px}
+.urgency-bar{height:100%;background:linear-gradient(90deg,var(--dl-blue),#60a5fa);transition:width .6s cubic-bezier(.2,.9,.2,1)}
+.urgency-value{font-size:12px;color:var(--muted);margin-top:6px}
+
+.response-bubble{background:linear-gradient(180deg,rgba(124,58,237,0.06),rgba(124,58,237,0.03));border-radius:12px;padding:12px;margin-top:10px}
+.response-header{font-weight:600;margin-bottom:8px}
+.response-body{background:#fff;padding:10px;border-radius:8px;box-shadow:0 6px 18px rgba(124,58,237,0.06)}
+
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;font-size:13px;color:#fff}
+.priority-pill{padding:8px 12px;border-radius:999px;font-weight:700}
+.priority-pill.low{background:var(--success);color:#fff}
+.priority-pill.medium{background:var(--warning);color:#08121a}
+.priority-pill.high{background:var(--danger);color:#fff}
+
+/* Panel color accents */
+.dl-panel{border-left:4px solid var(--dl-blue);padding-left:12px}
+.nlp-panel{border-left:4px solid var(--nlp-purple);padding-left:12px}
+
+/* hidden state for toggle */
+.nlp-panel.hidden{display:none;opacity:0;transform:translateY(6px);transition:all .24s ease}
+
+/* small ghost button used for toggle */
+.ghost{background:transparent;border:1px solid rgba(15,23,42,0.06);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:13px}
+.ghost:hover{background:rgba(15,23,42,0.03)}
+
+.badge.dl{background:rgba(37,99,235,0.1);color:var(--dl-blue);border:1px solid rgba(37,99,235,0.16)}
+.badge.mapped{background:rgba(124,58,237,0.1);color:var(--nlp-purple);border:1px solid rgba(124,58,237,0.16)}
+
+/* responsiveness */
+@media (max-width:880px){
+    .result-row{flex-direction:column}
+    .panel-header{align-items:flex-start}
+}
+
+.empty-card{background:transparent;padding:18px;border-radius:12px;color:var(--muted)}

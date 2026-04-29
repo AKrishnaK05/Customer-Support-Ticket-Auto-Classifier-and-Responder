@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Support Ticket Analyzer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .fade-in{animation:fadeIn 360ms ease both}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="brand">
+            <div class="logo">🤖</div>
+            <div>
+                <h1>Customer Support AI</h1>
+                <div class="sub">Ticket Analyzer — Dual-model Insights</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="wrap">
+    <section class="input-panel">
+        <form method="POST" id="ticketForm">
+            <label for="ticket" class="input-label">Enter customer ticket</label>
+            <textarea id="ticket" name="ticket" placeholder="Paste the customer ticket or complaint here..." required></textarea>
+
+            <div class="controls">
+                <div class="helper">Tip: include subject and a few lines of the message for best results.</div>
+                <button class="primary" id="analyzeBtn" type="submit">
+                    <span class="btn-text">Analyze Ticket</span>
+                    <span class="spinner" id="spinner" aria-hidden="true"></span>
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <section class="results-grid">
+        {% if result %}
+        <div class="result-card fade-in">
+            <div class="result-row">
+                <div class="dl-panel card-column">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title">🧠 Deep Learning Model</div>
+                            <div class="small muted">BiLSTM classifier + urgency regressor</div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <p class="ticket"><strong>Ticket:</strong> {{ result.text }}</p>
+                        <div class="field"><div class="label">Predicted Category</div><div class="value">{{ result.dl_category }}</div></div>
+                        <div class="field">
+                            <div style="width:100%">
+                                <div class="label">Urgency</div>
+                                <div class="urgency"><div class="urgency-bar" style="width: {{ (result.urgency * 100)|round(0) }}%"></div></div>
+                                <div class="urgency-value">{{ (result.urgency * 100)|round(0) }}%</div>
+                            </div>
+                        </div>
+                        <div class="field"><div class="label">Priority</div><div class="badge priority-pill {{ result.priority|lower|replace(' ', '-') }}">{{ result.priority }}</div></div>
+                    </div>
+                </div>
+
+                <div class="nlp-panel card-column">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title">🤖 NLP Pipeline</div>
+                            <div class="small muted">Zero-shot + intent extraction</div>
+                        </div>
+                        <button class="ghost" type="button" id="toggleNlpBtn">Toggle NLP</button>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="field"><div class="label">Mapped Category</div><div class="value">{{ result.category }}</div></div>
+                        <div class="field"><div class="label">Subject</div><div class="value">{{ result.subject }}</div></div>
+                        <div class="field"><div class="label">Action</div><div class="value">{{ result.action }}</div></div>
+
+                        <div class="response-bubble">
+                            <div class="response-header">Suggested Response</div>
+                            <div class="response-body">{{ result.response }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="empty-card">
+            <p>Enter a ticket above and click <em>Analyze Ticket</em> to see DL and NLP outputs side-by-side.</p>
+        </div>
+        {% endif %}
+    </section>
+</main>
+
+<script>
+const form = document.getElementById('ticketForm');
+const spinner = document.getElementById('spinner');
+const btn = document.getElementById('analyzeBtn');
+const toggleNlpBtn = document.getElementById('toggleNlpBtn');
+
+form && form.addEventListener('submit', () => {
+    btn.classList.add('loading');
+    spinner.style.display = 'inline-block';
+});
+
+const toggleNLP = () => {
+    const nlp = document.querySelector('.nlp-panel');
+    if (!nlp) return;
+    nlp.classList.toggle('hidden');
+};
+
+toggleNlpBtn && toggleNlpBtn.addEventListener('click', toggleNLP);
+</script>
+
+</body>
+</html>
