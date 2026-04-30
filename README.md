@@ -173,29 +173,6 @@ print(result)
 3. Paste a customer support ticket.
 4. View the DL prediction, urgency, intent, and suggested response.
 
-## Testing
-
-Run the smoke test:
-
-```bash
-python tests/smoke_test.py
-```
-
-Run a compile check:
-
-```bash
-python -m py_compile src/dl/*.py src/web/*.py src/nlp/*.py
-```
-
-## What Was Cleaned Up
-
-The repository was consolidated by:
-
-- removing duplicate wrapper files,
-- merging the separate NLP code into `src/nlp/`,
-- moving data files into `data/`,
-- moving the model checkpoint into `models/`,
-- keeping a single root entry point.
 
 ## Technologies Used
 
